@@ -5,9 +5,13 @@ import { login, signout } from './login';
 import { updateSettings } from './updateSettings';
 import { signup } from './signup';
 import { bookTour } from './stripe';
+import { forgotPassword } from './forgot-password';
+import { resetPassword } from './reset-password';
 
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
+const forgotPasswordForm = document.querySelector('.forgot-password--login');
+const resetPasswordForm = document.querySelector('.reset-password--login');
 const loginForm = document.querySelector('.form--login');
 const signupForm = document.querySelector('.form--signup');
 const logoutButton = document.querySelector('.nav__el--logout');
@@ -27,9 +31,36 @@ if (loginForm)
     document.querySelector('#btn-login').textContent = 'Please wait...';
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+
     login(email, password);
     document.querySelector('#btn-login').textContent = 'Login';
   });
+
+if (forgotPasswordForm) {
+  forgotPasswordForm.addEventListener('submit', e => {
+    e.preventDefault();
+    document.querySelector('#forgot-password').textContent = 'Sending email...';
+    const email = document.getElementById('email').value;
+
+    forgotPassword(email);
+    document.querySelector('#forgot-password').textContent = 'Send me an email';
+  });
+}
+if (resetPasswordForm) {
+  resetPasswordForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const token = document.querySelector('.reset-password--login').dataset.tokenId;
+
+    document.querySelector('#btn-reset-password').textContent = 'Updating...';
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+
+    resetPassword(password, passwordConfirm, token);
+    document.getElementById('password').value = '';
+    document.getElementById('passwordConfirm').value = '';
+    document.querySelector('#btn-reset-password').textContent = 'Reset Password';
+  });
+}
 
 if (signupForm)
   signupForm.addEventListener('submit', e => {

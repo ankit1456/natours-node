@@ -27674,7 +27674,143 @@ var bookTour = exports.bookTour = function () {
     return _ref.apply(this, arguments);
   };
 }();
-},{"axios":16,"./alert":15,"@stripe/stripe-js":17}],1:[function(require,module,exports) {
+},{"axios":16,"./alert":15,"@stripe/stripe-js":17}],417:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.forgotPassword = undefined;
+var _this = undefined;
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _alert = require('./alert');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; } /* eslint-disable */
+
+
+var forgotPassword = exports.forgotPassword = function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(email) {
+    var res;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return (0, _axios2.default)({
+              method: 'POST',
+              url: '/api/v1/users/forgotPassword',
+              data: {
+                email: email
+              }
+            });
+
+          case 3:
+            res = _context.sent;
+
+
+            if (res.data.status === 'success') {
+              (0, _alert.showAlert)('success', 'We just sent you an password reset link on your email 🙂');
+              // window.setTimeout(() => {
+              //   location.assign('/');
+              // }, 1000);
+            }
+            _context.next = 10;
+            break;
+
+          case 7:
+            _context.prev = 7;
+            _context.t0 = _context['catch'](0);
+
+            (0, _alert.showAlert)('error', _context.t0.response.data.message + ' \uD83D\uDE36');
+
+          case 10:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, _this, [[0, 7]]);
+  }));
+
+  return function forgotPassword(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+},{"axios":16,"./alert":15}],9:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.resetPassword = undefined;
+var _this = undefined;
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _alert = require('./alert');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; } /* eslint-disable */
+
+
+var resetPassword = exports.resetPassword = function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(password, passwordConfirm, token) {
+    var res;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return (0, _axios2.default)({
+              method: 'PATCH',
+              url: '/api/v1/users/resetPassword/' + token,
+              data: {
+                password: password,
+                passwordConfirm: passwordConfirm
+              }
+            });
+
+          case 3:
+            res = _context.sent;
+
+            if (res.data.status === 'success') {
+              (0, _alert.showAlert)('success', 'Password Updated 🙂');
+              window.setTimeout(function () {
+                location.assign('/login');
+              }, 1000);
+            }
+            _context.next = 10;
+            break;
+
+          case 7:
+            _context.prev = 7;
+            _context.t0 = _context['catch'](0);
+
+            (0, _alert.showAlert)('error', _context.t0.response.data.message + ' \uD83D\uDE36');
+
+          case 10:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, _this, [[0, 7]]);
+  }));
+
+  return function resetPassword(_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+}();
+},{"axios":16,"./alert":15}],1:[function(require,module,exports) {
 'use strict';
 
 var _this = undefined;
@@ -27691,11 +27827,17 @@ var _signup = require('./signup');
 
 var _stripe = require('./stripe');
 
+var _forgotPassword = require('./forgot-password');
+
+var _resetPassword = require('./reset-password');
+
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; } /* eslint-disable */
 
 
 // DOM ELEMENTS
 var mapBox = document.getElementById('map');
+var forgotPasswordForm = document.querySelector('.forgot-password--login');
+var resetPasswordForm = document.querySelector('.reset-password--login');
 var loginForm = document.querySelector('.form--login');
 var signupForm = document.querySelector('.form--signup');
 var logoutButton = document.querySelector('.nav__el--logout');
@@ -27714,9 +27856,36 @@ if (loginForm) loginForm.addEventListener('submit', function (e) {
   document.querySelector('#btn-login').textContent = 'Please wait...';
   var email = document.getElementById('email').value;
   var password = document.getElementById('password').value;
+
   (0, _login.login)(email, password);
   document.querySelector('#btn-login').textContent = 'Login';
 });
+
+if (forgotPasswordForm) {
+  forgotPasswordForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.querySelector('#forgot-password').textContent = 'Sending email...';
+    var email = document.getElementById('email').value;
+
+    (0, _forgotPassword.forgotPassword)(email);
+    document.querySelector('#forgot-password').textContent = 'Send me an email';
+  });
+}
+if (resetPasswordForm) {
+  resetPasswordForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var token = document.querySelector('.reset-password--login').dataset.tokenId;
+
+    document.querySelector('#btn-reset-password').textContent = 'Updating...';
+    var password = document.getElementById('password').value;
+    var passwordConfirm = document.getElementById('passwordConfirm').value;
+
+    (0, _resetPassword.resetPassword)(password, passwordConfirm, token);
+    document.getElementById('password').value = '';
+    document.getElementById('passwordConfirm').value = '';
+    document.querySelector('#btn-reset-password').textContent = 'Reset Password';
+  });
+}
 
 if (signupForm) signupForm.addEventListener('submit', function (e) {
   e.preventDefault();
@@ -27786,7 +27955,7 @@ if (bookBtn) bookBtn.addEventListener('click', function (e) {
 
   (0, _stripe.bookTour)(tourId);
 });
-},{"@babel/polyfill":13,"./mapbox":3,"./login":4,"./updateSettings":5,"./signup":6,"./stripe":7}],411:[function(require,module,exports) {
+},{"@babel/polyfill":13,"./mapbox":3,"./login":4,"./updateSettings":5,"./signup":6,"./stripe":7,"./forgot-password":417,"./reset-password":9}],414:[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -27815,7 +27984,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '56896' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '57093' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -27956,5 +28125,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[411,1], null)
+},{}]},{},[414,1], null)
 //# sourceMappingURL=/bundle.map

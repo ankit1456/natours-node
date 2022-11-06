@@ -33,6 +33,17 @@ exports.getTour = catchAsync(async (req, res, next) => {
     tour
   });
 });
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+  res.status(200).render('forgot-password', {
+    title: 'Forgot password'
+  });
+});
+exports.resetPassword = catchAsync(async (req, res, next) => {
+  res.status(200).render('reset-password', {
+    title: 'Reset password',
+    token: req.params.token
+  });
+});
 
 exports.getLoginForm = (req, res) => {
   res.status(200).render('login', {

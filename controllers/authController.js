@@ -128,9 +128,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   try {
     // 3) Send it to user's email
-    const resetURL = `${req.protocol}://${req.get(
-      'host'
-    )}/api/v1/users/resetPassword/${resetToken}`;
+    const resetURL = `${req.protocol}://${req.get('host')}/resetPassword/${resetToken}`;
     // await sendEmail({
     //   email: user.email,
     //   subject: 'Your password reset token (valid for 10 min)',
