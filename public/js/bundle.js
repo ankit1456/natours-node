@@ -27786,7 +27786,7 @@ var resetPassword = exports.resetPassword = function () {
             if (res.data.status === 'success') {
               (0, _alert.showAlert)('success', 'Password Updated 🙂');
               window.setTimeout(function () {
-                location.assign('/login');
+                location.assign('/signin');
               }, 1000);
             }
             _context.next = 10;
