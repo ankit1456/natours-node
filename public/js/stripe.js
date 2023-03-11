@@ -4,7 +4,7 @@ import { showAlert } from './alert';
 import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe(
-  'pk_test_51JUSXrSAVvF4YxNhdmZNUWtU62YRQ7ZJLZ7TJTMftFknJW77GBm721n0FUlWdmMTeRE8UO7LNPoKl68WAD8TiVO300nYg4gV6J'
+  'pk_test_51JUSXrSAVvF4YxNhcdpjojORGmpIzM508hKnHylWsGLO9c4GwUeZ1a4SRhh9iVa3Ir9U03CUrnrbx4qHQ1joLcQX000PsgXcVu'
 );
 
 // const stripe = Stripe(

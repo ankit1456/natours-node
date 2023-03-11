@@ -27623,7 +27623,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; } /* eslint-disable */
 
 
-var stripePromise = (0, _stripeJs.loadStripe)('pk_test_51JUSXrSAVvF4YxNhdmZNUWtU62YRQ7ZJLZ7TJTMftFknJW77GBm721n0FUlWdmMTeRE8UO7LNPoKl68WAD8TiVO300nYg4gV6J');
+var stripePromise = (0, _stripeJs.loadStripe)('pk_test_51JUSXrSAVvF4YxNhcdpjojORGmpIzM508hKnHylWsGLO9c4GwUeZ1a4SRhh9iVa3Ir9U03CUrnrbx4qHQ1joLcQX000PsgXcVu');
 
 // const stripe = Stripe(
 //   'pk_test_51JUFepSJXrXaVcPCfneYKsWpsPDY01063IN5ggEfcckg1W56iXJr16XruMtrGLP0QNFZ0GWKjfL5auSBCbFczRJQ00pgDKfqBB'
@@ -27955,7 +27955,7 @@ if (bookBtn) bookBtn.addEventListener('click', function (e) {
 
   (0, _stripe.bookTour)(tourId);
 });
-},{"@babel/polyfill":13,"./mapbox":3,"./login":4,"./updateSettings":5,"./signup":6,"./stripe":7,"./forgot-password":417,"./reset-password":9}],414:[function(require,module,exports) {
+},{"@babel/polyfill":13,"./mapbox":3,"./login":4,"./updateSettings":5,"./signup":6,"./stripe":7,"./forgot-password":417,"./reset-password":9}],413:[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -27984,7 +27984,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '57093' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '55766' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -28125,5 +28125,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[414,1], null)
+},{}]},{},[413,1], null)
 //# sourceMappingURL=/bundle.map
