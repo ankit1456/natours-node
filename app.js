@@ -8,7 +8,7 @@ const hpp = require('hpp');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
-const cookieparser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -68,7 +68,7 @@ app.post(
 // body parser
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-app.use(cookieparser());
+app.use(cookieParser());
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
@@ -89,7 +89,7 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/bookings', bookingRouter);
 app.use('/api/v1/reviews', reviewRouter);
 
-app.all('*', (req, res, next) =>
+app.all('/{*any}', (req, res, next) =>
   next(new AppError(`Can't find ${req.originalUrl} on the server`, 404))
 );
 

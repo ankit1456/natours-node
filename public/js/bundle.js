@@ -881,7 +881,7 @@ $export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
 
 for (var es6Symbols = (
   // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
-  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
+  ("hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables")
 ).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
 
 for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
@@ -1453,10 +1453,9 @@ if (!$Number(' 0o1') || !$Number('0b1') || $Number('+0x1')) {
   };
   for (var keys = require('./_descriptors') ? gOPN(Base) : (
     // ES3:
-    'MAX_VALUE,MIN_VALUE,NaN,NEGATIVE_INFINITY,POSITIVE_INFINITY,' +
+    ('MAX_VALUE,MIN_VALUE,NaN,NEGATIVE_INFINITY,POSITIVE_INFINITY,' +
     // ES6 (in case, if modules with ES6 Number statics required before):
-    'EPSILON,isFinite,isInteger,isNaN,isSafeInteger,MAX_SAFE_INTEGER,' +
-    'MIN_SAFE_INTEGER,parseFloat,parseInt,isInteger'
+    'EPSILON,isFinite,isInteger,isNaN,isSafeInteger,MAX_SAFE_INTEGER,' + 'MIN_SAFE_INTEGER,parseFloat,parseInt,isInteger')
   ).split(','), j = 0, key; keys.length > j; j++) {
     if (has(Base, key = keys[j]) && !has($Number, key)) {
       dP($Number, key, gOPD(Base, key));
@@ -1494,7 +1493,7 @@ var $export = require('./_export');
 var toInteger = require('./_to-integer');
 var aNumberValue = require('./_a-number-value');
 var repeat = require('./_string-repeat');
-var $toFixed = 1.0.toFixed;
+var $toFixed = (1.0).toFixed;
 var floor = Math.floor;
 var data = [0, 0, 0, 0, 0, 0];
 var ERROR = 'Number.toFixed: incorrect invocation!';
@@ -1545,10 +1544,10 @@ var log = function (x) {
 };
 
 $export($export.P + $export.F * (!!$toFixed && (
-  0.00008.toFixed(3) !== '0.000' ||
-  0.9.toFixed(0) !== '1' ||
-  1.255.toFixed(2) !== '1.25' ||
-  1000000000000000128.0.toFixed(0) !== '1000000000000000128'
+  (0.00008).toFixed(3) !== '0.000' ||
+  (0.9).toFixed(0) !== '1' ||
+  (1.255).toFixed(2) !== '1.25' ||
+  (1000000000000000128.0).toFixed(0) !== '1000000000000000128'
 ) || !require('./_fails')(function () {
   // V8 ~ Android 4.3-
   $toFixed.call({});
@@ -1609,7 +1608,7 @@ $export($export.P + $export.F * (!!$toFixed && (
 var $export = require('./_export');
 var $fails = require('./_fails');
 var aNumberValue = require('./_a-number-value');
-var $toPrecision = 1.0.toPrecision;
+var $toPrecision = (1.0).toPrecision;
 
 $export($export.P + $export.F * ($fails(function () {
   // IE7-
@@ -11263,7 +11262,7 @@ function base64clean (str) {
 
 function stringtrim (str) {
   if (str.trim) return str.trim()
-  return str.replace(/^\s+|\s+$/g, '')
+  return str.replace(/^\s+|\s+$/g, '');
 }
 
 function toHex (n) {
@@ -19357,7 +19356,7 @@ function gen_bitlen(s, desc)
       if (m > max_code) { continue; }
       if (tree[m * 2 + 1]/*.Len*/ !== bits) {
         // Trace((stderr,"code %d bits %d->%d\n", m, tree[m].Len, bits));
-        s.opt_len += (bits - tree[m * 2 + 1]/*.Len*/) * tree[m * 2]/*.Freq*/;
+        s.opt_len += ((bits - tree[m * 2 + 1])/*.Len*/) * tree[m * 2]/*.Freq*/;
         tree[m * 2 + 1]/*.Len*/ = bits;
       }
       n--;
@@ -19728,7 +19727,7 @@ function build_tree(s, desc)
   /* The elements heap[heap_len/2+1 .. heap_len] are leaves of the tree,
    * establish sub-heaps of increasing lengths:
    */
-  for (n = (s.heap_len >> 1/*int /2*/); n >= 1; n--) { pqdownheap(s, tree, n); }
+  for (n = ((s.heap_len >> 1)/*int /2*/); n >= 1; n--) { pqdownheap(s, tree, n); }
 
   /* Construct the Huffman tree by repeatedly combining the least two
    * frequent nodes.
@@ -21148,7 +21147,7 @@ function deflate_slow(s, flush) {
       /* longest_match() sets match_start */
 
       if (s.match_length <= 5 &&
-         (s.strategy === Z_FILTERED || (s.match_length === MIN_MATCH && s.strstart - s.match_start > 4096/*TOO_FAR*/))) {
+         (s.strategy === Z_FILTERED || ((s.match_length === MIN_MATCH && s.strstart - s.match_start > 4096)/*TOO_FAR*/))) {
 
         /* If prev_match is also MIN_MATCH, match_start is garbage
          * but we will ignore the current match anyway.
@@ -23607,7 +23606,7 @@ function inflate(strm, flush) {
             len = input[next + copy++];
             /* use constant limit because in js we should not preallocate memory */
             if (state.head && len &&
-                (state.length < 65536 /*state.head.name_max*/)) {
+                ((state.length < 65536) /*state.head.name_max*/)) {
               state.head.name += String.fromCharCode(len);
             }
           } while (len && copy < have);
@@ -23633,7 +23632,7 @@ function inflate(strm, flush) {
             len = input[next + copy++];
             /* use constant limit because in js we should not preallocate memory */
             if (state.head && len &&
-                (state.length < 65536 /*state.head.comm_max*/)) {
+                ((state.length < 65536) /*state.head.comm_max*/)) {
               state.head.comment += String.fromCharCode(len);
             }
           } while (len && copy < have);

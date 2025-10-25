@@ -54,11 +54,14 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
   );
   next();
 });
-exports.aliasTopTours = (req, res, next) => {
-  req.query.limit = '5';
-  req.query.sort = '-ratingsAverage,price';
-  req.query.fields = 'name,price,summary,ratingsAverage,difficulty';
 
+exports.aliasTopTours = (req, res, next) => {
+  req.parsedQuery = {
+    ...req.query,
+    limit: '5',
+    sort: '-ratingsAverage,price',
+    fields: 'name,price,summary,ratingsAverage,difficulty'
+  };
   next();
 };
 
@@ -99,6 +102,8 @@ exports.getTourStats = catchAsync(async (req, res, next) => {
 
 exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
   const year = req.params.year * 1;
+
+  if (Number.isNaN(year)) return;
   const plan = await Tour.aggregate([
     {
       $unwind: '$startDates'

@@ -17,8 +17,9 @@ const handleValidationErrorDB = err => {
   return new AppError(message, 400);
 };
 
-const handleJWTError = () =>
-  new AppError('You are not logged in . Please log in to get access 🙂', 401);
+const handleJWTError = () => {
+  return new AppError('You are not logged in . Please log in to get access 🙂', 401);
+};
 
 const handleJWTExpiredError = () => {
   return new AppError('Your credentials have been expired .Please log in again', 401);
